@@ -1,19 +1,20 @@
-# def clean_database(record_ids):
-#     # Requirement: Remove all odd numbers from the list
-#     for record_id in record_ids:
-#         if record_id % 2 != 0:
-#             record_ids.remove(record_id)
+# Question: python code with a bug
+def clean_database(record_ids):
+    # Requirement: Remove all odd numbers from the list
+    for record_id in record_ids:
+        if record_id % 2 != 0:
+            record_ids.remove(record_id) 
 
-#     return record_ids
+    return record_ids
 
 
-# # Test Case
-# data = [1, 3, 4, 6, 7, 9, 10]
-# cleaned = clean_database(data)
+# Test Case
+data = [1, 3, 4, 6, 7, 9, 10]
+cleaned = clean_database(data)
 
-# print(f"Final List: {cleaned}")
-# # EXPECTED: [4, 6, 10]
-# # ACTUAL:   [3, 4, 6, 9, 10]
+print(f"Final List: {cleaned}")
+# EXPECTED: [4, 6, 10]
+# ACTUAL:   [3, 4, 6, 9, 10]
 
 
 
@@ -30,11 +31,11 @@
 #    That makes the iterator "blind" to the next element.
 
 # 3. The Fix:
-#    Fix A: Modify the original list by looping backward.
+# Fix A: Modify the original list by looping backward.
 
 def clean_database(record_ids):
     # Requirement: Remove all odd numbers from the list
-    for record_id in reversed(record_ids):
+    for record_id in reversed(record_ids): # Looping backward allows the program to safely remove items without affecting the indices of the remaining items that we have yet to check.
         if record_id % 2 != 0:
             record_ids.remove(record_id)
 
@@ -47,6 +48,22 @@ cleaned = clean_database(data)
 
 print(f"Final List: {cleaned}")
 # EXPECTED: [4, 6, 10]
-# ACTUAL:   [3, 4, 6, 9, 10]
+# ACTUAL:   [4, 6, 10]
 
-#    Fix B: Create a new list with only valid values (immutable approach).
+# Fix B: Create a new list with only valid values (immutable approach).
+
+def clean_database(record_ids):
+    # Requirement: Remove all odd numbers from the list
+    for record_id in record_ids:
+        if record_id % 2 != 0:
+            record_ids.remove(record_id)
+# This line creates a new list that includes only the even numbers from the original list.
+# effectively filtering out the odd numbers without modifying the original list during iteration.
+    return [record_id for record_id in record_ids if record_id % 2 == 0] 
+# Test Case
+data = [1, 3, 4, 6, 7, 9, 10]
+cleaned = clean_database(data)
+
+print(f"Final List: {cleaned}")
+# EXPECTED: [4, 6, 10]
+# ACTUAL:   [4, 6, 10]
